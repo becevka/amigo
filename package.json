@@ -1,0 +1,13 @@
+{
+  "name": "amigo",
+  "version": "0.0.1",
+  "description": "AngularJS MongoDB Express NodeJS project generator",
+  "keywords": [],
+  "author": "Wolf Bas <becevka@gmail.coom>",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "main": "index"
+}
