@@ -1,7 +1,17 @@
 
 # amigo
 
-  AngularJS MongoDB Express NodeJS project generator
+    AngularJS MongoDB Express NodeJS project generator
+
+## Installation
+
+    $ npm install amigo
+
+## Usage
+
+    Usage: amigo [path]
+
+    Next you will interactively asked on different project properties.
 
 ## License 
 
