@@ -1,0 +1,11 @@
+'use strict';
+
+/* Services */
+angular.module('{{name}}.services', ['ngResource'])
+{{#models}}
+    .factory('{{cName}}', function ($resource) {
+        var {{cName}} = $resource('/{{name}}/:id');
+        return {{cName}};
+    })
+{{/models}}
+    ;

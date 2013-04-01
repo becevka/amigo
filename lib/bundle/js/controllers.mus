@@ -1,0 +1,44 @@
+'use strict';
+
+/* Controllers */
+function IndexCtrl($scope) {
+    $scope.models = [];
+    {{#models}}
+    $scope.models.push('{{cName}}');
+    {{/models}}
+}
+
+{{#models}}
+
+function Add{{cName}}Ctrl($scope, $location, {{cName}}) {
+    $scope.save = function() {
+        {{cName}}.save($scope.{{name}}, function({{name}}) {
+            $location.path('/edit/' + {{name}}._id.$oid);
+        });
+    }
+}
+
+function List{{cName}}Ctrl($scope, {{cName}}) {
+    $scope.{{name}}s = {{cName}}.query();
+}
+
+function Edit{{cName}}Ctrl($scope, $location, $routeParams, {{cName}}) {
+    {{cName}}.get({id: $routeParams.id}, function({{name}}) {
+        self.original = {{name}};
+        $scope.{{name}} = new {{cName}}(self.original);
+    });
+    $scope.save = function() {
+        {{cName}}.update({id: $routeParams.id}, function() {
+          $location.path('/list{{cName}}');
+        });
+    };
+    $scope.remove = function() {
+        {{cName}}.remove.({id: $routeParams.id}, function() {
+          $location.path('/list{{cName}}');
+        });
+    };
+    $scope.isClean = function() {
+        return angular.equals(self.original, $scope.{{name}});
+    }
+}
+{{/models}}

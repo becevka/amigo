@@ -1,0 +1,28 @@
+'use strict';
+
+angular.module('{{name}}', ['{{name}}.filters', '{{name}}.services', '{{name}}.directives']).
+    config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: 'partials/index',
+                controller: IndexCtrl
+            }).
+        {{#models}}
+            when('/add{{cName}}', {
+                templateUrl: 'partials/add{{cName}}',
+                controller: Add{{cName}}Ctrl
+            }).
+            when('/list{{cName}}', {
+                templateUrl: 'partials/list{{cName}}',
+                controller: List{{cName}}Ctrl
+            }).
+            when('/edit{{cName}}/:id', {
+                templateUrl: 'partials/edit{{cName}}',
+                controller: Edit{{cName}}Ctrl
+            }).
+        {{/models}}
+            otherwise({
+                redirectTo: '/'
+            });
+        $locationProvider.html5Mode(true);
+    }]);

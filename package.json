@@ -1,6 +1,6 @@
 {
   "name": "amigo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "AngularJS MongoDB Express NodeJS project generator",
   "author": "Wolf Bas <becevka@gmail.coom>",
   "repository": {
@@ -10,12 +10,13 @@
   "engines": {"node": "*"},
   "dependencies": {
     "commander": "*",
+    "mustache": "*",
     "mkdirp": "*"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
-  "keywords": ["amigo", "express", "mongo", "structure", "generator"],
+  "keywords": ["amigo", "express", "mongo", "structure", "anjular" , "generator"],
   "bin": { "amigo": "./bin/amigo" }
 }
