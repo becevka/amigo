@@ -6,9 +6,7 @@ Allows easily scaffold project layout with CRUD operations and UI skeleton.
 
 Your project will depend on Mongoskin, Express/Jade/Stylus and JQuery/Angular/Bootstrap for UI
 
-Mongo Session store support
-CSRF protection supported
-Authorization support
+Mongo Session store, CSRF protection and Authorization support are built in.
 
 ## Installation
 
