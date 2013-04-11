@@ -1,14 +1,14 @@
 
 # amigo
 
-    AngularJS MongoDB Express NodeJS project generator.
-    Allows easily scaffold project layout with CRUD operations and UI skeleton.
+AngularJS MongoDB Express NodeJS project generator.
+Allows easily scaffold project layout with CRUD operations and UI skeleton.
 
-    Your project will depend on Mongoskin, Express/Jade/Stylus and JQuery/Angular/Bootstrap for UI
+Your project will depend on Mongoskin, Express/Jade/Stylus and JQuery/Angular/Bootstrap for UI
 
-    Mongo Session store support
-    CSRF supported
-    Authorization support
+Mongo Session store support
+CSRF protection supported
+Authorization support
 
 ## Installation
 
@@ -18,10 +18,10 @@
 
     Usage: amigo [path]
 
-    Next you will be interactively asked on different project properties.
+Next you will be interactively asked on different project properties.
 
-    Among all you will be asked to scaffold resources, though amigo do not use mongoose schema, resources are used
-    to generate resource bindings for AngularJS and Express and UI.
+Among all you will be asked to scaffold resources, though amigo do not use mongoose schema, resources are used
+to generate resource bindings for AngularJS and Express and UI.
 
 ## TODO
 

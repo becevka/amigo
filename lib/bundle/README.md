@@ -1,7 +1,7 @@
 
 # {{project name}}
 
-    {{description}}
+{{description}}
 
 ## License
 
