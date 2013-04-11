@@ -1,0 +1,17 @@
+table
+    thead
+        tr
+            <%#fields%>
+            th <%fieldCName%>
+            <%/fields%>
+            th
+                a(href="/add<%cName%>")
+                    i.icon-plus-sign
+    tbody
+        tr(ng-repeat='<%name%> in <%pName%>')
+            <%#fields%>
+            td {{<%name%>.<%fieldName%>}}
+            <%/fields%>
+            td
+                a(href="/edit<%cName%>/{{<%name%>._id}}")
+                    i.icon-pencil

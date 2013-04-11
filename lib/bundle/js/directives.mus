@@ -2,8 +2,40 @@
 
 /* Directives */
 angular.module('{{name}}.directives', []).
-    directive('appVersion', ['version', function (version) {
-        return function (scope, elm, attrs) {
-            elm.text(version);
-        };
-    }]);
+    directive('hFill',function () {
+            return function (scope, element, attrs) {
+                var value = attrs.hFill;
+                var p = element.parent();
+                scope.getParentHeight = function () {
+                    return p.height();
+                };
+                scope.$watch(scope.getParentHeight, function (newValue, oldValue) {
+                    if(newValue && newValue !== oldValue){
+                        value = value * (newValue / 100) + 'px'
+                        element.css('height', value);
+                    }
+                }, true);
+                p.bind('resize', function () {
+                    scope.$apply();
+                });
+            };
+        }
+    ).directive('wFill', function () {
+            return function (scope, element, attrs) {
+                var value = attrs.wFill;
+                var p = element.parent();
+                scope.getParentWidth = function () {
+                    return p.width();
+                };
+                scope.$watch(scope.getParentWidth, function (newValue, oldValue) {
+                    if(newValue && newValue !== oldValue){
+                        value = value * (newValue / 100) + 'px'
+                        element.css('width', value);
+                    }
+                }, true);
+                p.bind('resize', function () {
+                    scope.$apply();
+                });
+            };
+        }
+    );

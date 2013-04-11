@@ -1,19 +1,14 @@
 extends layout
 
 block content
-    div(ng-controller='AppCtrl')
-        h2 Hello from {{name}}
-        ul.menu
-            li
-                a(href='view1') view1
-            li
-                a(href='view2') view2
-
-        div(ng-view)
-    script(src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular{{min}}.js")
-    script(src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource{{min}}.js")
-    script(src='js/app.js')
-    script(src='js/services.js')
-    script(src='js/controllers.js')
-    script(src='js/filters.js')
-    script(src='js/directives.js')
+    include head
+    p.error(ng-show='error', ng-bind='error')
+    div.well(h-fill='70', ng-view)
+    script(src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery{{min}}.js")
+    script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular{{min}}.js")
+    script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource{{min}}.js")
+    script(src='/js/services.js')
+    script(src='/js/controllers.js')
+    script(src='/js/filters.js')
+    script(src='/js/directives.js')
+    script(src='/js/app.js')

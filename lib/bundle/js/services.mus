@@ -2,9 +2,15 @@
 
 /* Services */
 angular.module('{{name}}.services', ['ngResource'])
+    .factory('Auth', function ($resource) {
+        var Auth = $resource('/auth');
+        return Auth;
+    })
 {{#models}}
     .factory('{{cName}}', function ($resource) {
-        var {{cName}} = $resource('/{{name}}/:id');
+        var {{cName}} = $resource('/{{pName}}/:_id', {}, {
+            update: { method: 'PUT', params: {_id: "@_id" }}
+        });
         return {{cName}};
     })
 {{/models}}

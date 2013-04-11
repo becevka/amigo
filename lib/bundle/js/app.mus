@@ -1,15 +1,23 @@
 'use strict';
 
 angular.module('{{name}}', ['{{name}}.filters', '{{name}}.services', '{{name}}.directives']).
-    config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/index',
-                controller: IndexCtrl
+                controller:IndexCtrl
+            }).
+            when('/login', {
+                templateUrl: 'partials/login',
+                controller: LoginCtrl
+            }).
+            when('/logout/:csrf', {
+                templateUrl: 'partials/index',
+                controller: LogoutCtrl
             }).
         {{#models}}
             when('/add{{cName}}', {
-                templateUrl: 'partials/add{{cName}}',
+                templateUrl: 'partials/edit{{cName}}',
                 controller: Add{{cName}}Ctrl
             }).
             when('/list{{cName}}', {
@@ -25,4 +33,28 @@ angular.module('{{name}}', ['{{name}}.filters', '{{name}}.services', '{{name}}.d
                 redirectTo: '/'
             });
         $locationProvider.html5Mode(true);
+
+        var interceptor = ['$rootScope', '$location', '$q', function($rootScope, $location, $q) {
+                function success(response) {
+                    return response;
+                }
+
+                function error(response) {
+                    if(response.status == 401) {
+                        $location.path('/login');
+                        return $q.reject(response);
+                    } else if(response.status == 500) {
+                        $rootScope.error = response.data.error;
+                        return $q.reject(response);
+                    } else {
+                        return $q.reject(response);
+                    }
+                }
+
+                return function(promise) {
+                    return promise.then(success, error);
+                }
+            }];
+
+        $httpProvider.responseInterceptors.push(interceptor);
     }]);

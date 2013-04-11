@@ -1,0 +1,10 @@
+form(ng-submit='login()', ng-value='form._csrf = "#{token}"')
+    input(type='email', ng-model='form.email', required=true, name='email', placeholder='you@email')
+    p
+    input(type='password', ng-model='form.pass', required=true, name='pass', placeholder='your******')
+    p
+    input.btn.btn-info.btn-large(type='submit', name='submit', value='login')
+    div
+        p do not have account?
+        p no problem, enter your email, password and
+            b  login

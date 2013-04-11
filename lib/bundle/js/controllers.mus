@@ -1,6 +1,12 @@
 'use strict';
 
 /* Controllers */
+function AppCtrl($scope, Auth) {
+    Auth.get(function(user) {
+        $rootScope.user = user;
+    });
+}
+
 function IndexCtrl($scope) {
     $scope.models = [];
     {{#models}}
@@ -8,32 +14,48 @@ function IndexCtrl($scope) {
     {{/models}}
 }
 
+function LoginCtrl($rootScope, $scope, $location, Auth) {
+    $scope.form = {};
+    $scope.login = function () {
+        Auth.save($scope.form, function(user) {
+             $location.path('/');
+             $rootScope.user = user;
+        });
+    };
+}
+
+function LogoutCtrl($scope, $location, $routeParams, Auth) {
+    Auth.remove({_csrf: $routeParams.csrf}, function() {
+         $location.path('/login');
+    });
+}
+
 {{#models}}
 
 function Add{{cName}}Ctrl($scope, $location, {{cName}}) {
     $scope.save = function() {
-        {{cName}}.save($scope.{{name}}, function({{name}}) {
-            $location.path('/edit/' + {{name}}._id.$oid);
+        {{cName}}.save($scope.{{name}}, function() {
+            $location.path('/list{{cName}}');
         });
     }
 }
 
 function List{{cName}}Ctrl($scope, {{cName}}) {
-    $scope.{{name}}s = {{cName}}.query();
+    $scope.{{pName}} = {{cName}}.query();
 }
 
 function Edit{{cName}}Ctrl($scope, $location, $routeParams, {{cName}}) {
-    {{cName}}.get({id: $routeParams.id}, function({{name}}) {
+    {{cName}}.get({_id: $routeParams.id}, function({{name}}) {
         self.original = {{name}};
         $scope.{{name}} = new {{cName}}(self.original);
     });
     $scope.save = function() {
-        {{cName}}.update({id: $routeParams.id}, function() {
+        {{cName}}.update($scope.{{name}}, function() {
           $location.path('/list{{cName}}');
         });
     };
     $scope.remove = function() {
-        {{cName}}.remove.({id: $routeParams.id}, function() {
+        {{cName}}.remove({_id: $routeParams.id, _csrf: $scope.{{name}}._csrf}, function() {
           $location.path('/list{{cName}}');
         });
     };

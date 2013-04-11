@@ -1,0 +1,100 @@
+/**
+ * Module dependencies.
+ */
+
+var express = require('express');
+var store = require('./modules/session-store');
+var http = require('http');
+var routes = require('./routes');
+var api = require('./routes/api');
+var path = require('path');
+var stylus = require('stylus');
+var mongo = require('mongoskin');
+var config = require('./config');
+
+var dbHost = config.mongodb.server;
+var dbPort = config.mongodb.port;
+var dbName = config.mongodb.db;
+var dbOptions = {
+    auto_reconnect: config.mongodb.autoReconnect,
+    poolSize: config.mongodb.poolSize,
+    safe: true
+};
+
+var connectString = [dbHost, ':', dbPort,'/', dbName].join('');
+var db = mongo.db(connectString, dbOptions);
+db.open(function (err, db) {
+    if (err) {
+        throw err;
+    }
+    console.log("DB connected: " + connectString);
+});
+
+var app = express();
+var publicPath =  path.join(__dirname, 'public');
+
+var port = config.site.port;
+app.configure(function () {
+    app.set('port',  port);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(stylus.middleware(publicPath));
+    app.use(express.static(publicPath));
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.cookieParser(config.site.cookieSecret));
+    app.use(express.session({store: new store(db), secret: config.site.sessionSecret }));
+    app.use(express.csrf());
+    app.use(app.router);
+});
+app.configure('development', function () {
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+app.configure('production', function(){
+    app.use(express.errorHandler());
+});
+
+{{#models}}
+var {{pName}} = db.collection('{{pName}}');
+{{/models}}
+
+//mongodb middleware
+var middleware = function (req, res, next) {
+    req.db = db;
+    req.id = req.params.id;
+    if(req.id) {
+        req.id = db.ObjectID.createFromHexString(req.id);
+    }
+    res.locals.token = req.session._csrf;
+    {{#models}}
+    req.{{pName}} = {{pName}};
+    {{/models}}
+    next();
+};
+
+
+// Routes
+app.get('/', middleware, routes.index);
+app.get('/partials/:name', middleware, routes.partials);
+app.post('/auth', middleware, routes.auth);
+app.get('/auth', middleware, routes.session);
+app.delete('/auth', middleware, routes.logout);
+
+// JSON API
+{{#models}}
+//{{name}}
+app.get('/{{pName}}', middleware, api.{{pName}});
+app.get('/{{pName}}/:id', middleware, api.{{name}});
+app.post('/{{pName}}', middleware, api.add{{cName}});
+app.put('/{{pName}}/:id', middleware, api.edit{{cName}});
+app.delete('/{{pName}}/:id', middleware, api.delete{{cName}});
+{{/models}}
+
+// redirect all others to the index (HTML5 history)
+app.get('*', routes.index);
+
+
+http.createServer(app).listen(port, function(){
+    console.log('Express server listening on port ' + port);
+});

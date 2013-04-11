@@ -1,0 +1,52 @@
+{{#models}}
+//{{name}}
+// GET
+exports.{{pName}} = function (req, res) {
+    req.{{pName}}.find().toArray(function(err, result) {
+        handle(err, res, result);
+    });
+};
+
+exports.{{name}} = function (req, res) {
+    var id = req.id;
+    req.{{pName}}.findOne({_id:id}, function(err, result) {
+        handle(err, res, result);
+    });
+};
+
+// POST
+exports.add{{cName}} = function (req, res) {
+    delete req.body._csrf;
+    req.{{pName}}.insert(req.body, function(err, result) {
+        handle(err, res, result[0]);
+    });
+};
+
+// PUT
+exports.edit{{cName}} = function (req, res) {
+    var id = req.id;
+    delete req.body._id;
+    delete req.body._csrf;
+    req.{{pName}}.update({_id:id}, req.body, function(err, result) {
+        handle(err, res, result);
+    });
+};
+
+// DELETE
+exports.delete{{cName}} = function (req, res) {
+    var id = req.id;
+    req.{{pName}}.remove({_id:id}, function(err, result) {
+        handle(err, res, true);
+    });
+};
+
+{{/models}}
+
+function handle(err, res, val) {
+    if (err) {
+        res.send(500, { error: err.message });
+        console.log(err.stack);
+    } else {
+        res.json(val);
+    }
+}

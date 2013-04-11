@@ -1,31 +1,13 @@
 
-# amigo
+# {{project name}}
 
-    AngularJS MongoDB Express NodeJS project generator
+    {{description}}
 
-## Installation
-
-    $ npm install -g amigo
-
-## Usage
-
-    Usage: amigo [path]
-
-    Next you will interactively asked on different project properties.
-
-    Among all you will be asked to scaffold resources, though amigo do not use mongoose schema, resources are used
-    to generate resource bindings for AngularJS and Express and UI.
-
-## TODO
-
-    Tests
-    Nested resources
-
-## License 
+## License
 
 (The MIT License)
 
-Copyright (c) 2013 Wolf Bas &lt;becevka@gmail.coom&gt;
+Copyright (c) 2012 {{your name}} <{{your email}}>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
