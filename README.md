@@ -18,7 +18,7 @@
 
     Usage: amigo [path]
 
-    Next you will interactively asked on different project properties.
+    Next you will be interactively asked on different project properties.
 
     Among all you will be asked to scaffold resources, though amigo do not use mongoose schema, resources are used
     to generate resource bindings for AngularJS and Express and UI.
