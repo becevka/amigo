@@ -3,7 +3,7 @@ extends layout
 block content
     include head
     p.error(ng-show='error', ng-bind='error')
-    div.well(h-fill='70', ng-view)
+    div.well(ng-view)
     script(src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery{{min}}.js")
     script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular{{min}}.js")
     script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource{{min}}.js")

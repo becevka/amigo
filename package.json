@@ -1,6 +1,6 @@
 {
   "name": "amigo",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "AngularJS MongoDB Express NodeJS project generator",
   "author": "Wolf Bas <becevka@gmail.coom>",
   "repository": {
