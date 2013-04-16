@@ -329,6 +329,311 @@
  	</pre>
  </section>
 
+ <section class="slide top">
+  <img src="layers.gif" height="500" alt="layers">
+</section>
+
+<section class="slide top">
+  <blockquote>Tim (Berners-Lee) bawled me out in the summer of '93 for adding images to the thing 
+    <cite>Marc Andreesen, Mosaic</cite>
+  </blockquote>
+  <img class="slide" src="everything.jpg" alt="browsers">
+</section>
+
+<section class="slide top">
+    <h2>Requirements for UI framework</h2>
+    <ol style="padding-left: 5em">
+      <li>
+        <h3>Declarative, simple way to describe our presentation, how it looks and how it lays out</h3>
+      </li>
+      <li>
+        <h3>Dynamic application out of the box</h3>
+      </li>
+      <li>
+        <h3>No need to extend framework classes in order to make it work</h3>
+      </li>
+      <li>
+        <h3>Easy implemented REST support</h3>
+      </li>
+      <li>
+        <h3>Less code</h3>
+      </li>
+    </ol>
+ </section>
+
+ <section class="slide top">
+  <img src="input.png" alt="input">
+  <div class="slide">
+    <pre style="padding-left: 5em">
+      &lt;label&gt;Here&nbsp;is&nbsp;your&nbsp;value:&lt;/label&gt;
+      &lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&quot;value&quot;/&gt;
+      &lt;span&gt;Here&nbsp;is&nbsp;double:&nbsp;{{value&nbsp;*&nbsp;2}}&lt;/span&gt;
+    </pre>
+  </center>
+</section>
+
+<section class="slide top">
+  <img src="angular.png" height="250" alt="angular">
+</section>
+
+<section class="slide top">
+    <h2>Core Features of AngularJS</h2>
+    <ol style="padding-left: 5em">
+      <li>
+        <h3>Two Way Data-binding</h3>
+      </li>
+      <li>
+        <h3>Model View Whatever</h3>
+      </li>
+      <li>
+        <h3>HTML Templates</h3>
+      </li>
+      <li>
+        <h3>Deep Linking</h3>
+      </li>
+      <li>
+        <h3>Dependency Injection</h3>
+      </li>
+      <li>
+        <h3>Directives</h3>
+      </li>
+    </ol>
+ </section>
+
+ <section class="slide top">
+    <h2>Two Way Data-Binding</h2>
+    <img src="1bind.png" alt="before"/>
+    <section class="slide">
+      <img src="2bind.png" alt="after"/>
+    </section>
+ </section>
+
+ <section class="slide top">
+    <h2>Two Way Data-Binding</h2>
+    <pre style="padding-left: 5em">
+      &lt;span&nbsp;id=&quot;yourName&quot;&gt;&lt;/span&gt;
+      document.getElementById('yourName')[0].text&nbsp;=&nbsp;'bob';
+    </pre>
+    <section class="slide">
+      <pre style="padding-left: 5em">
+        &lt;span&gt;{{yourName}}&lt;/span&gt;
+        var yourName = 'bob';
+      </pre>
+    </section>
+ </section>
+
+ <section class="slide top">
+    <h2>Model View Whatever</h2>
+    <img src="mvw.png" height="500" alt="mvw"/>
+ </section>
+
+ <section class="slide top">
+    <h2>HTML Templates </h2>
+    <pre style="padding-left: 5em">
+      &lt;div ng-controller=&quot;AlbumCtrl&quot;&gt;
+        &lt;ul&gt;
+          &lt;li ng-repeat=&quot;image in images&quot;&gt;
+            &lt;img ng-src=&quot;{{image.thumbnail}}&quot; alt=&quot;{{image.description}}&quot;&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    </pre>
+    <section class="slide">
+      <pre style="padding-left: 5em">
+        function AlbumCtrl($scope) {
+          scope.images = [
+              {"thumbnail":"img/image_01.png", "description":"Image 01 description"},
+              {"thumbnail":"img/image_02.png", "description":"Image 02 description"},
+              {"thumbnail":"img/image_03.png", "description":"Image 03 description"},
+              {"thumbnail":"img/image_04.png", "description":"Image 04 description"},
+              {"thumbnail":"img/image_05.png", "description":"Image 05 description"}
+          ];
+        }
+      </pre>
+    </section>
+ </section>
+
+ <section class="slide top">
+    <h2>Deep Linking</h2>
+    <img src="location.jpg" height="500" alt="location"/>
+ </section>
+
+ <section class="slide top">
+    <h2>Dependency Injection</h2>
+    <pre style="padding-left: 5em">
+      function EditCtrl($scope, $location, $routeParams, User) {
+          // Something clever here...
+      }
+    </pre>
+ </section>
+
+ <section class="slide top">
+    <h2>Directives</h2>
+    <pre style="padding-left: 5em">
+      &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;inner&quot;&gt;
+          &lt;ul&gt;
+            &lt;li&gt;Item
+              &lt;div class=&quot;subsection&quot;&gt;item 2&lt;/div&gt;
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    </pre>
+    <section class="slide">
+      <pre style="padding-left: 5em">
+        &lt;dropdown&gt;
+          &lt;item&gt;Item 1
+            &lt;subitem&gt;Item 2&lt;/subitem&gt;
+          &lt;/item&gt;
+        &lt;/dropdown&gt;
+      </pre>
+    </section>
+ </section>
+
+ <section class="slide top">
+    <h2>Other features</h2>
+    <section class="slide">
+      <h3>Filters</h3>
+      <pre style="padding-left: 5em">
+        &lt;td&gt;{{name|uppercase}}&lt;/td&gt;
+      </pre>
+    </section>
+    <section class="slide">
+      <h3>Services</h3>
+      <pre style="padding-left: 5em">
+        app.factory('User', function ($resource) {
+          var User = $resource('/users/:_id', {}, {
+            update: { method: 'PUT', params: {_id: "@_id" }}
+          });
+          return User;
+        });
+      </pre>
+    </section>
+    <section class="slide">
+      <h3>Routes</h3>
+      <pre style="padding-left: 5em">
+        app.config(['$routeProvider', function($routeProvider) {
+          $routeProvider.
+          when('/login', {
+              templateUrl: 'partials/login',
+              controller: LoginCtrl
+          });
+        }]);
+      </pre>
+    </section>
+ </section>
+
+<section class="slide top">
+    <h2>Complete example</h2>
+    <pre style="padding-left: 5em">
+&lt;html ng-app='myApp'&gt;
+&lt;head&gt;
+  &lt;title&gt;Your Shopping Cart&lt;/title&gt;
+&lt;/head&gt;
+&lt;body ng-controller='CartController'&gt;
+    &lt;h1&gt;Your Order&lt;/h1&gt;
+    &lt;div ng-repeat='item in items'&gt;
+        &lt;span&gt;{{item.title}}&lt;/span&gt;
+        &lt;input ng-model='item.quantity'&gt;
+        &lt;span&gt;{{item.price | currency}}&lt;/span&gt;
+        &lt;span&gt;{{item.price * item.quantity | currency}}&lt;/span&gt;
+        &lt;button ng-click=&quot;remove($index)&quot;&gt;Remove&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;angular.js&quot;&gt; &lt;/script&gt;
+    &lt;script&gt;
+        angular.module(&quot;myApp&quot;, []);
+        function CartController($scope) {
+            $scope.items = [
+                {title: 'Paint pots', quantity: 8, price: 3.95},
+                {title: 'Polka dots', quantity: 17, price: 12.95},
+                {title: 'Pebbles', quantity: 5, price: 6.95}
+            ];
+            $scope.remove = function(index) {
+                $scope.items.splice(index, 1);
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+ </section>
+
+<section class="slide top">
+    <h2>Angular Resources</h2>
+    <ol style="padding-left: 5em">
+      <li>
+        <h3>http://angular-ui.github.io/ - a lot of useful directives and filters</h3>
+      </li>
+      <li>
+        <h3>http://angular-ui.github.io/bootstrap/ - twitter bootstrap directives</h3>
+      </li>
+      <li>
+        <h3>http://angular-ui.github.io/ng-grid/ - grid</h3>
+      </li>
+      <li>
+        <h3>https://github.com/angular/angularjs-batarang - web inspector extension</h3>
+      </li>
+      <li style="margin-top: 3em">
+        <h3>http://docs.angularjs.org/ - official documentation</h3>
+      </li>
+      <li>
+        <h3>http://www.egghead.io/ - video tutorials</h3>
+      </li>
+      <li>
+        <h3>http://deansofer.com/posts/view/14/AngularJs-Tips-and-Tricks-UPDATED - Tips and tricks</h3>
+      </li>
+      <li>
+        <h3>http://www.cheatography.com/proloser/cheat-sheets/angularjs/ - Cheat sheets</h3>
+      </li>
+    </ol>
+ </section>
+
+<section class="slide top">
+  <h2>All together now</h2>
+  <h4>Amigo - AngularJS MongoDB Express Node.js project generator. Allows easily scaffold project layout with CRUD operations and UI skeleton.</h4>
+  <h3>https://github.com/becevka/amigo</h3>
+  <pre class="slide">
+    $ npm install -g amigo
+    amigo todo
+  </pre>
+</section>
+
+<section class="slide top">
+    <h2>Amigo features</h2>
+    <ol style="padding-left: 5em">
+      <li>
+        <h3>Resources scaffolding</h3>
+      </li>
+      <li>
+        <h3>MongoDB storage</h3>
+      </li>
+      <li>
+        <h3>Angular Routes</h3>
+      </li>
+      <li>
+        <h3>Angular Resources Factories</h3>
+      </li>
+      <li>
+        <h3>CRUD UI out of the box</h3>
+      </li>
+      <li>
+        <h3>Authentification</h3>
+      </li>
+      <li>
+        <h3>Session support and storing</h3>
+      </li>
+    </ol>
+ </section>
+
+ <section class="slide top">
+    <h2>Demo</h2>
+ </section>
+
+ <section class="slide top">
+    <h2>Thanks</h2>
+    <h3>http://becevka.github.io/amigo/</h3>
+ </section>
 
 <!-- End slides. -->
 
