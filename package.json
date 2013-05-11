@@ -18,6 +18,6 @@
     "mocha": "*",
     "should": "*"
   },
-  "keywords": ["amigo", "express", "mongo", "structure", "anjular" , "generator"],
+  "keywords": ["amigo", "express", "mongo", "structure", "angular" , "generator"],
   "bin": { "amigo": "./bin/amigo" }
 }

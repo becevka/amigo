@@ -36,11 +36,72 @@ exports.edit{{cName}} = function (req, res) {
 exports.delete{{cName}} = function (req, res) {
     var id = req.id;
     req.{{pName}}.remove({_id:id}, function(err, result) {
-        handle(err, res, true);
+        handle(err, res, result);
     });
 };
 
+{{#inner}}
+//{{name}} {{iName}}
+// GET
+exports.{{pName}}{{iPCName}} = function (req, res) {
+    var id = req.id;
+    req.{{pName}}.find({_id:id}, { {{iPName}}:1}).toArray(function(err, result) {
+        handle(err, res, result);
+    });
+};
+
+exports.{{name}}{{iCName}} = function (req, res) {
+    var id = req.id;
+    var iid = req.iid;
+    req.{{pName}}.findOne({_id:id, '{{iPName}}.id':iid}, function(err, result) {
+        handle(err, res, result);
+    });
+};
+
+// POST
+exports.add{{cName}}{{iCName}} = function (req, res) {
+    delete req.body._csrf;
+    delete req.body._id;
+    req.body.id = uid();
+    var id = req.id;
+    req.{{pName}}.update({_id:id}, { $push: { {{iPName}} : req.body } }, function(err, result) {
+        handleResult(err, res, result, req.{{pName}}, id);
+    });
+};
+
+// PUT
+exports.edit{{cName}}{{iCName}} = function (req, res) {
+    var id = req.id;
+    var iid = req.iid;
+    delete req.body._id;
+    delete req.body._csrf;
+    req.{{pName}}.update({_id:id, '{{iPName}}.id':iid}, { $set: { '{{iPName}}.$' : req.body } }, function(err, result) {
+        handleResult(err, res, result, req.{{pName}}, id);
+    });
+};
+
+// DELETE
+exports.delete{{cName}}{{iCName}} = function (req, res) {
+    var id = req.id;
+    var iid = req.iid;
+    req.{{pName}}.update({_id:id}, { $pull: { {{iPName}} : {id:iid} } }, function(err, result) {
+        handleResult(err, res, result, req.{{pName}}, id);
+    });
+};
+
+{{/inner}}
+
 {{/models}}
+
+function handleResult(err, res, result, collection, id) {
+    if (err) {
+        handle(err, res, result);
+    } else {
+        collection.findOne({_id: id}, function (err, result) {
+            handle(err, res, result);
+        });
+    }
+}
 
 function handle(err, res, val) {
     if (err) {
@@ -49,4 +110,8 @@ function handle(err, res, val) {
     } else {
         res.json(val);
     }
+}
+
+function uid() {
+    return "" + new Date().getTime();
 }

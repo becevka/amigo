@@ -63,6 +63,7 @@ var {{pName}} = db.collection('{{pName}}');
 var middleware = function (req, res, next) {
     req.db = db;
     req.id = req.params.id;
+    req.iid = req.params.iid;
     if(req.id) {
         req.id = db.ObjectID.createFromHexString(req.id);
     }
@@ -89,10 +90,20 @@ app.get('/{{pName}}/:id', middleware, api.{{name}});
 app.post('/{{pName}}', middleware, api.add{{cName}});
 app.put('/{{pName}}/:id', middleware, api.edit{{cName}});
 app.delete('/{{pName}}/:id', middleware, api.delete{{cName}});
+
+{{#inner}}
+//{{name}} {{iName}}
+app.get('/{{pName}}/:id/{{iPName}}', middleware, api.{{pName}}{{iPCName}});
+app.get('/{{pName}}/:id/{{iPName}}/:iid', middleware, api.{{name}}{{iCName}});
+app.post('/{{pName}}/:id/{{iPName}}', middleware, api.add{{cName}}{{iCName}});
+app.put('/{{pName}}/:id/{{iPName}}/:iid', middleware, api.edit{{cName}}{{iCName}});
+app.delete('/{{pName}}/:id/{{iPName}}/:iid', middleware, api.delete{{cName}}{{iCName}});
+{{/inner}}
+
 {{/models}}
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+app.get('*', middleware, routes.index);
 
 
 http.createServer(app).listen(port, function(){

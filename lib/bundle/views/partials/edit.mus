@@ -9,3 +9,30 @@ form(name='appForm', ng-value='<%name%>._csrf = "#{token}"')
         a.btn(href='/list<%cName%>') Cancel
         button.btn.btn-primary(ng-click='save()', ng-disabled='isClean() || appForm.$invalid') Save
         button.btn.btn-danger(ng-click='remove()', ng-show='<%name%>._id') Delete
+
+tabs
+<%#inner%>
+    pane(title='<%iPCName%>')
+        table
+            thead
+                tr
+                    <%#iFields%>
+                    th <%fieldCName%>
+                    <%/iFields%>
+                    th
+                        span.click(ng-click='add<%iCName%>()')
+                            i.icon-plus-sign
+                    th
+            tbody
+                tr(ng-repeat='<%iName%> in <%name%>.<%iPName%>')
+                    <%#iFields%>
+                    td
+                        input(type='<%type%>', name='<%fieldName%>', ng-model='<%iName%>.<%fieldName%>', placeholder='Choose Text', required)
+                    <%/iFields%>
+                    td
+                        span.click(ng-click='save<%iCName%>(<%iName%>)')
+                            i.icon-ok
+                    td
+                        span.click(ng-click='remove<%iCName%>(<%iName%>)')
+                            i.icon-trash
+<%/inner%>

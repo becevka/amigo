@@ -1,41 +1,49 @@
 'use strict';
 
 /* Directives */
-angular.module('{{name}}.directives', []).
-    directive('hFill',function () {
-            return function (scope, element, attrs) {
-                var value = attrs.hFill;
-                var p = element.parent();
-                scope.getParentHeight = function () {
-                    return p.height();
+angular.module('<%name%>.directives', []).
+    directive('tabs',function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            scope: {},
+            controller: function ($scope, $element) {
+                var panes = $scope.panes = [];
+
+                $scope.select = function (pane) {
+                    angular.forEach(panes, function (pane) {
+                        pane.selected = false;
+                    });
+                    pane.selected = true;
                 };
-                scope.$watch(scope.getParentHeight, function (newValue, oldValue) {
-                    if(newValue && newValue !== oldValue){
-                        value = value * (newValue / 100) + 'px'
-                        element.css('height', value);
-                    }
-                }, true);
-                p.bind('resize', function () {
-                    scope.$apply();
-                });
-            };
-        }
-    ).directive('wFill', function () {
-            return function (scope, element, attrs) {
-                var value = attrs.wFill;
-                var p = element.parent();
-                scope.getParentWidth = function () {
-                    return p.width();
-                };
-                scope.$watch(scope.getParentWidth, function (newValue, oldValue) {
-                    if(newValue && newValue !== oldValue){
-                        value = value * (newValue / 100) + 'px'
-                        element.css('width', value);
-                    }
-                }, true);
-                p.bind('resize', function () {
-                    scope.$apply();
-                });
-            };
-        }
-    );
+
+                this.addPane = function (pane) {
+                    if (panes.length == 0) $scope.select(pane);
+                    panes.push(pane);
+                }
+            },
+            template: '<div class="tabbable">' +
+                '<ul class="nav nav-tabs">' +
+                '<li ng-repeat="pane in panes" ng-class="{active:pane.selected}">' +
+                '<a href="" ng-click="select(pane)">{{pane.title}}</a>' +
+                '</li>' +
+                '</ul>' +
+                '<div class="tab-content" ng-transclude></div>' +
+                '</div>',
+            replace: true
+        };
+    }).
+    directive('pane', function () {
+        return {
+            require: '^tabs',
+            restrict: 'E',
+            transclude: true,
+            scope: { title: '@' },
+            link: function (scope, element, attrs, tabsCtrl) {
+                tabsCtrl.addPane(scope);
+            },
+            template: '<div class="tab-pane" ng-class="{active: selected}" ng-transclude>' +
+                '</div>',
+            replace: true
+        };
+    });

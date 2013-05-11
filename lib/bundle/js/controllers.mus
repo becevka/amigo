@@ -1,7 +1,7 @@
 'use strict';
 
 /* Controllers */
-function AppCtrl($scope, Auth) {
+function AppCtrl($rootScope, Auth) {
     Auth.get(function(user) {
         $rootScope.user = user;
     });
@@ -44,14 +44,14 @@ function List{{cName}}Ctrl($scope, {{cName}}) {
     $scope.{{pName}} = {{cName}}.query();
 }
 
-function Edit{{cName}}Ctrl($scope, $location, $routeParams, {{cName}}) {
+function Edit{{cName}}Ctrl($scope, $location, $routeParams, {{cName}}{{#inner}}, {{iCName}}{{/inner}}) {
     {{cName}}.get({_id: $routeParams.id}, function({{name}}) {
         self.original = {{name}};
         $scope.{{name}} = new {{cName}}(self.original);
     });
     $scope.save = function() {
         {{cName}}.update($scope.{{name}}, function() {
-          $location.path('/list{{cName}}');
+            $location.path('/list{{cName}}');
         });
     };
     $scope.remove = function() {
@@ -61,6 +61,35 @@ function Edit{{cName}}Ctrl($scope, $location, $routeParams, {{cName}}) {
     };
     $scope.isClean = function() {
         return angular.equals(self.original, $scope.{{name}});
-    }
+    };
+    {{#inner}}
+    $scope.add{{iCName}} = function() {
+        if(!$scope.{{name}}.{{iPName}}) {
+            $scope.{{name}}.{{iPName}} = [];
+        }
+        $scope.{{name}}.{{iPName}}.push({});
+    };
+    $scope.save{{iCName}} = function({{iName}}) {
+        {{iName}}._id = $routeParams.id;
+        {{iName}}._csrf = $scope.{{name}}._csrf;
+        if ({{iName}}.id) {
+            {{iCName}}.update({{iName}}, function({{name}}) {
+                self.original = {{name}};
+                $scope.{{name}} = new {{cName}}(self.original);
+            });
+        } else {
+            {{iCName}}.save({{iName}}, function({{name}}) {
+                self.original = {{name}};
+                $scope.{{name}} = new {{cName}}(self.original);
+            });
+        }
+    };
+    $scope.remove{{iCName}} = function({{iName}}) {
+        {{iCName}}.remove({_id: $routeParams.id, id:{{iName}}.id, _csrf: $scope.{{name}}._csrf}, function({{name}}) {
+            self.original = {{name}};
+            $scope.{{name}} = new {{cName}}(self.original);
+        });
+    };
+    {{/inner}}
 }
 {{/models}}

@@ -13,5 +13,13 @@ angular.module('{{name}}.services', ['ngResource'])
         });
         return {{cName}};
     })
+    {{#inner}}
+    .factory('{{iCName}}', function ($resource) {
+        var {{iCName}} = $resource('/{{pName}}/:_id/{{iPName}}/:id', {_id: "@_id"}, {
+            update: { method: 'PUT', params: {id: "@id" }}
+        });
+        return {{iCName}};
+    })
+    {{/inner}}
 {{/models}}
     ;
