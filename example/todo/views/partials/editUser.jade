@@ -1,0 +1,19 @@
+form(name='appForm', ng-value='user._csrf = "#{token}"')
+    .control-group(ng-class='{error: appForm.name.$invalid}')
+        .controls
+            input(type='text', name='name', ng-model='user.name', placeholder='Choose Name', required)
+            span.help-inline(ng-show='appForm.name.$error.required') Required
+    .control-group(ng-class='{error: appForm.email.$invalid}')
+        .controls
+            input(type='email', name='email', ng-model='user.email', placeholder='Choose Email', required)
+            span.help-inline(ng-show='appForm.email.$error.required') Required
+    .control-group(ng-class='{error: appForm.password.$invalid}')
+        .controls
+            input(type='password', name='password', ng-model='user.password', placeholder='Choose Password', required)
+            span.help-inline(ng-show='appForm.password.$error.required') Required
+    .control-group
+        a.btn(href='/listUser') Cancel
+        button.btn.btn-primary(ng-click='save()', ng-disabled='isClean() || appForm.$invalid') Save
+        button.btn.btn-danger(ng-click='remove()', ng-show='user._id') Delete
+
+tabs

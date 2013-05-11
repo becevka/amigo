@@ -1,0 +1,44 @@
+form(name='appForm', ng-value='task._csrf = "#{token}"')
+    .control-group(ng-class='{error: appForm.text.$invalid}')
+        .controls
+            input(type='text', name='text', ng-model='task.text', placeholder='Choose Text', required)
+            span.help-inline(ng-show='appForm.text.$error.required') Required
+    .control-group(ng-class='{error: appForm.owner.$invalid}')
+        .controls
+            input(type='text', name='owner', ng-model='task.owner', placeholder='Choose Owner', required)
+            span.help-inline(ng-show='appForm.owner.$error.required') Required
+    .control-group(ng-class='{error: appForm.due_date.$invalid}')
+        .controls
+            input(type='date', name='due_date', ng-model='task.due_date', placeholder='Choose DueDate', required)
+            span.help-inline(ng-show='appForm.due_date.$error.required') Required
+    .control-group
+        a.btn(href='/listTask') Cancel
+        button.btn.btn-primary(ng-click='save()', ng-disabled='isClean() || appForm.$invalid') Save
+        button.btn.btn-danger(ng-click='remove()', ng-show='task._id') Delete
+
+tabs
+    pane(title='Comments')
+        table
+            thead
+                tr
+                    th Text
+                    th Author
+                    th PostDate
+                    th
+                        span.click(ng-click='addComment()')
+                            i.icon-plus-sign
+                    th
+            tbody
+                tr(ng-repeat='comment in task.comments')
+                    td
+                        input(type='text', name='text', ng-model='comment.text', placeholder='Choose Text', required)
+                    td
+                        input(type='text', name='author', ng-model='comment.author', placeholder='Choose Text', required)
+                    td
+                        input(type='date', name='post_date', ng-model='comment.post_date', placeholder='Choose Text', required)
+                    td
+                        span.click(ng-click='saveComment(comment)')
+                            i.icon-ok
+                    td
+                        span.click(ng-click='removeComment(comment)')
+                            i.icon-trash

@@ -1,0 +1,42 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+a {
+  color: #00b7ff;
+}
+.error {
+  color: #b94a48;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+.logo {
+  float: left;
+  width: 72px;
+  height: 72px;
+}
+.tools {
+  float: right;
+}
+.heading {
+  height: 100px;
+  padding: 10px;
+}
+.info {
+  display: block;
+  padding-left: 5px;
+}
+.help-inline {
+  display: inline-block;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+.control-group.error .help-inline {
+  color: #b94a48;
+}
+.control-group > * {
+  margin-left: 5px;
+}
+.click {
+  cursor: pointer;
+}

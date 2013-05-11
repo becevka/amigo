@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    include head
+    p.error(ng-show='error', ng-bind='error')
+    div.well(ng-view, ng-cloak)
+    script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.js")
+    script(src = "//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular-resource.js")
+    script(src='/js/services.js')
+    script(src='/js/controllers.js')
+    script(src='/js/filters.js')
+    script(src='/js/directives.js')
+    script(src='/js/app.js')

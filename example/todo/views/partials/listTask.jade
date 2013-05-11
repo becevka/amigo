@@ -1,0 +1,17 @@
+table
+    thead
+        tr
+            th Text
+            th Owner
+            th DueDate
+            th
+                a(href="/addTask")
+                    i.icon-plus-sign
+    tbody
+        tr(ng-repeat='task in tasks')
+            td {{task.text}}
+            td {{task.owner}}
+            td {{task.due_date}}
+            td
+                a(href="/editTask/{{task._id}}")
+                    i.icon-pencil

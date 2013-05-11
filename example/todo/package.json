@@ -1,0 +1,17 @@
+{
+  "name": "todo",
+  "author": "becevka <becevka@gmail.com>",
+  "description": "Example Todo App",
+  "version": "0.0.1",
+  "private": true,
+  "engine": "node >= 0.8",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.1",
+    "jade": "*",
+    "stylus": "*",
+    "mongoskin": "*"
+  }
+}

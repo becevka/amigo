@@ -1,0 +1,17 @@
+table
+    thead
+        tr
+            th Name
+            th Email
+            th Password
+            th
+                a(href="/addUser")
+                    i.icon-plus-sign
+    tbody
+        tr(ng-repeat='user in users')
+            td {{user.name}}
+            td {{user.email}}
+            td {{user.password}}
+            td
+                a(href="/editUser/{{user._id}}")
+                    i.icon-pencil

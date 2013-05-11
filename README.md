@@ -45,7 +45,7 @@ to specify inner resources (like /task/12/comments/2) use '$' before resource na
 
     Resource fields
 
-    text, author, request_date
+    text, author, post_date:date
 
 ## TODO
 

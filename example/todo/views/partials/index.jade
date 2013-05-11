@@ -1,0 +1,4 @@
+p There are {{models.length}} resources
+div(ng-repeat='model in models')
+    a(href='/list{{model}}')
+        h3 {{model}}
