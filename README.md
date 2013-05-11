@@ -31,19 +31,19 @@ then resource fields with field types
 
 to specify inner resources (like /task/12/comments/2) use '$' before resource name and link it as field type.
 
-    Resource name
+    Resource name:
 
     task
 
-    Resource fields
+    Resource fields:
 
     text, owner, due_date:date, comments:$comment
 
-    Resource name
+    Inner resource name:
 
     $comment
 
-    Resource fields
+    Inner resource fields
 
     text, author, post_date:date
 
