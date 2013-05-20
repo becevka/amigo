@@ -1,4 +1,3 @@
-
 # amigo
 
 AngularJS MongoDB Express Node.js project generator.
@@ -57,7 +56,7 @@ to specify inner resources (like /task/12/comments/2) use '$' before resource na
 
 (The MIT License)
 
-Copyright (c) 2013 Wolf Bas &lt;becevka@gmail.coom&gt;
+Copyright (c) 2013 Wolf Bas &lt;becevka@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
