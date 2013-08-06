@@ -1,18 +1,18 @@
 {
   "name": "amigo",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "AngularJS MongoDB Express NodeJS project generator",
   "author": "Wolf Bas <becevka@gmail.coom>",
   "repository": {
     "type": "git",
     "url": "git://github.com/becevka/amigo.git"
   },
-  "engines": {"node": "*"},
+  "engines": {"node": "node >= 0.8"},
   "dependencies": {
-    "commander": "*",
-    "mustache": "*",
-    "i": "*",
-    "mkdirp": "*"
+    "commander": "1.3",
+    "mustache": "0.7",
+    "i": "0.3",
+    "mkdirp": "0.3"
   },
   "devDependencies": {
     "mocha": "*",
