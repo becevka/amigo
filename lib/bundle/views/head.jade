@@ -1,6 +1,6 @@
 div.navbar-inner(ng-controller='AppCtrl')
     img.logo(src='/img/logo.png')
-    h2 todo
+    h2 <%name%>
     div.tools
         span.info(ng-show='user') welcome {{user.name}},
             a.btn.btn-link.out(href='/logout/#{token}', ng-show='user')  logout

@@ -27,7 +27,7 @@ tabs
                 tr(ng-repeat='<%iName%> in <%name%>.<%iPName%>')
                     <%#iFields%>
                     td
-                        input(type='<%type%>', name='<%fieldName%>', ng-model='<%iName%>.<%fieldName%>', placeholder='Choose Text', required)
+                        input(type='<%type%>', name='<%fieldName%>', ng-model='<%iName%>.<%fieldName%>', placeholder='Choose <%fieldCName%>', required)
                     <%/iFields%>
                     td
                         span.click(ng-click='save<%iCName%>(<%iName%>)')
