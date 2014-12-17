@@ -52,7 +52,7 @@ to specify inner resources (like /task/12/comments/2) use '$' before resource na
     Linked resources
     OAuth
 
-## License 
+## License
 
 (The MIT License)
 
